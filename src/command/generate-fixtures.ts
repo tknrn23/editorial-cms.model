@@ -46,26 +46,12 @@ export class GenerateFixtures {
     generate(): FixturesData {
         const data: FixturesData = this.prepareEmptyData()
         // Generate fixtures for each entity type
-        this.generateArticles(data)
         this.generateUsers(data)
         this.generateCategories(data)
-        /*this.generateNetworks(data)*/
+        this.generateNetworks(data)
+        this.generateArticles(data)
 
         return data
-    }
-
-    private generateArticles(data: FixturesData): void {
-        const articles: Article[] = []
-
-        for (const article of data.articles) {
-            let nbArticleToCreate: number = 20
-
-            while (nbArticleToCreate--) {
-                articles.push(article)
-            }
-        }
-
-        data.articles.push(...articles)
     }
 
     private generateUsers(data: FixturesData): void {
@@ -86,17 +72,53 @@ export class GenerateFixtures {
         })
     }
 
-    private generateCategories(data: FixturesData) {
+    private generateCategories(data: FixturesData): void {
         const categories: Category[] = []
 
-        for (const category of data.categories) {
-            let nbCategoryToCreate: number = 5
+        let nbCategoriesToCreate: number = 5
 
-            while (nbCategoryToCreate--) {
-                categories.push(category)
-            }
+        while (nbCategoriesToCreate--) {
+            categories.push(this.categoryGenerator.generate({}))
         }
 
         data.categories.push(...categories)
+    }
+
+    private generateNetworks(data: FixturesData): void {
+        const networks: Network[] = []
+
+        let nbNetworksToCreate: number = 3
+
+        while (nbNetworksToCreate--) {
+            networks.push(this.networkGenerator.generate({}))
+        }
+
+        data.networks.push(...networks)
+    }
+
+    private generateArticles(data: FixturesData): void {
+        const articles: Article[] = []
+
+        for (const user of data.users) {
+            let nbArticlesToCreate: number = 2
+
+            while (nbArticlesToCreate--) {
+                const nbRandomCategory: number = Math.floor(Math.random() * (data.categories.length + 1))
+
+                const categoryIds: string[] = [...data.categories]
+                    .sort((): number => Math.random() - 0.5)
+                    .slice(0, nbRandomCategory)
+                    .map((category: Category): Category['id'] => category.id)
+
+                const article: Article = this.articleGenerator.generate({
+                    author: user.id,
+                    categories: categoryIds,
+                    network: data.networks[Math.floor(Math.random() * data.networks.length)].id,
+                })
+                articles.push(article)
+            }
+        }
+
+        data.articles.push(...articles)
     }
 }

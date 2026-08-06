@@ -20,13 +20,13 @@
         "node": ">=20"
     },
     "scripts": {
-        "publish-patch": "npm version patch && git push && npm publish ",
         "build": "npx tsc",
-        "generate-fixtures": "npx ts-node ./generator/test-generate-fixtures.ts > .data.json",
+        "generate-fixtures": "rm -f .data.json && npx ts-node ./generator/test-generate-fixtures.ts > .data.json",
         "lint": "npx eslint --fix --cache src/",
         "post-build": "npm run pretty-lint",
         "pretty": "npx prettier --write --cache .",
         "pretty-lint": "npm run pretty && npm run lint",
+        "publish-patch": "npm version patch && git push && npm publish ",
         "test": "jest"
     },
     "devDependencies": {
