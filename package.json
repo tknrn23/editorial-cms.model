@@ -1,0 +1,46 @@
+{
+    "name": "@tknrn23/editorial-cms.model",
+    "version": "1.0.0",
+    "license": "private",
+    "description": "editorial cms model definition",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tknrn23/editorial-cms.model.git"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/",
+        "access": "restricted"
+    },
+    "files": [
+        "/dist"
+    ],
+    "engines": {
+        "node": ">=20"
+    },
+    "scripts": {
+        "publish-patch": "npm version patch && git push && npm publish ",
+        "build": "npx tsc",
+        "generate-fixtures": "npx ts-node ./generator/test-generate-fixtures.ts > .data.json",
+        "lint": "npx eslint --fix --cache src/",
+        "post-build": "npm run pretty-lint",
+        "pretty": "npx prettier --write --cache .",
+        "pretty-lint": "npm run pretty && npm run lint",
+        "test": "jest"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.1.1",
+        "@faker-js/faker": "^8.4.1",
+        "@noble/curves": "^1.5.0",
+        "@types/jest": "^29.5.12",
+        "@types/node": "^20.12.8",
+        "eslint": "^8.57.0",
+        "jest": "^29.7.0",
+        "prettier": "^3.2.5",
+        "rimraf": "^5.0.7",
+        "ts-jest": "^29.2.5",
+        "typescript": "^5.4.5",
+        "typescript-eslint": "^7.7.1"
+    }
+}
