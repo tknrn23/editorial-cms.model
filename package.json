@@ -1,6 +1,6 @@
 {
     "name": "@tknrn23/editorial-cms.model",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "license": "private",
     "description": "editorial cms model definition",
     "main": "dist/index.js",
