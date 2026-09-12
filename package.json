@@ -22,10 +22,10 @@
     "scripts": {
         "build": "npx tsc",
         "generate-fixtures": "rm -f .data.json && npx ts-node ./generator/test-generate-fixtures.ts > .data.json",
+        "generate-security-matrix": "npx ts-node ./generator/test-generate-security-matrix.ts",
         "lint": "npx eslint --fix --cache src/",
-        "post-build": "npm run pretty-lint",
+        "post-build": "npm run pretty && npm run lint",
         "pretty": "npx prettier --write --cache .",
-        "pretty-lint": "npm run pretty && npm run lint",
         "publish-patch": "npm version patch && git push && npm publish ",
         "test": "jest"
     },
